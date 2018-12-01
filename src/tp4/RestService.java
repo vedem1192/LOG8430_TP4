@@ -3,8 +3,12 @@ package tp4;
 
 import com.mongodb.MongoClient;
 
+import java.io.InputStream;
+
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -20,27 +24,32 @@ public class RestService extends Application {
 	
 		
 	// http://localhost:8080/TP4/resources/REST/hello?name=Vero
+	// http://localhost:8080/TP4/resources/REST/receipe
 	@GET
 	@Path("/hello")
 	public Response getHello(@QueryParam("name") String name) {
 		return Response.ok("Hello " + name).build();
 	}
 	
-	@GET
-	@Path("/article")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Item getItem() {
-		postToDB();
-		return new Item("Banane", 4);
+	@POST
+	@Path("/receipt")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addReceipt(InputStream data) {
+		
+		return Response.ok().build();
 	}
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Item getItem() {
+//		postToDB();
+//		return new Item("Banane", 4, 2);
+//	}
 	
 	private void postToDB() {
 		if(mongo == null ) {
 			mongo = new MongoClient();
 		}
 		
-		
-		mongo.getDatabase("LOG8430").getCollection("receipes").insertOne(ItemHelper.toDBDocument(new Item("Banana", 2)));
+		mongo.getDatabase("LOG8430").getCollection("receipes").insertOne(ItemHelper.toDBDocument(new Item("Banana", 2, 1)));
 		String connectPoint = mongo.getConnectPoint();
 		System.out.println(connectPoint);
 	}
