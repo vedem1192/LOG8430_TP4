@@ -1,7 +1,5 @@
 package tp4;
 
-import org.bson.Document;
-
 public class Item {
 	
 	private String name;
