@@ -1,0 +1,57 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h1>
+  Ajoutez un article
+</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="name">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="qty">Quantity:</label>
+        <input type="number" class="form-control" id="qty" [(ngModel)]='qty'>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" class="form-control" id="price" [(ngModel)]='price'>
+      </div>
+    </div>
+    <div class="col">
+      <a href="#" class="btn btn-info btn-lg" (click)="addItem()"> Ajouter </a>
+    </div>
+  </div>
+</div>
+<div class="alert alert-danger" *ngIf="error"> Impossible d'ajouter cet article </div>
+
+<h3>
+  Panier
+</h3>
+
+<div class="container">
+    <div class="row" *ngFor="let item of panier">
+      <div class="col">
+          {{ item.name }}
+      </div>
+      <div class="col">
+          {{ item.qty }}
+      </div>
+      <div class="col">
+          {{ item.price }}
+      </div>
+    </div>
+  </div>
+
+<div> Le total du panier est de : <strong>{{this.total}}</strong></div>
+
+<a href="#" class="btn btn-info btn-lg" (click)="sendReceipt()"> Envoyer </a>
+<div class="alert alert-success" *ngIf="success">Votre facture à été envoyé</div>
+<div class="alert alert-danger" *ngIf="errorHttp">Une erreur est survenue lors de l'envoie de la facture.</div>
+
+<router-outlet></router-outlet>
