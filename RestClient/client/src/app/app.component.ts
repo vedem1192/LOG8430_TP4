@@ -38,9 +38,11 @@ export class AppComponent {
     try {
       var result = await this.http.post('http://localhost:8080/TP4/resources/REST/receipt', this.panier).toPromise();
       this.success = true;
+      this.errorHttp = false;
       this.panier = [];
     } catch (err) {
       this.errorHttp = true;
+      this.success = false;
     }
   }
 }
