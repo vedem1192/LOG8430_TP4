@@ -8,7 +8,8 @@ public class ItemHelper {
 		Document documentItem = new Document();
 		
 		documentItem.append("name", item.getName())
-					.append("price", item.getPrice());
+					.append("price", item.getPrice())
+					.append("quatity", item.getQuantity());
 		
 		return documentItem;
 	}

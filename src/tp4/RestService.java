@@ -3,7 +3,9 @@ package tp4;
 
 import com.mongodb.MongoClient;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
@@ -22,27 +24,27 @@ public class RestService extends Application {
 	
 	MongoClient mongo = null;
 	
-		
-	// http://localhost:8080/TP4/resources/REST/hello?name=Vero
 	// http://localhost:8080/TP4/resources/REST/receipe
-	@GET
-	@Path("/hello")
-	public Response getHello(@QueryParam("name") String name) {
-		return Response.ok("Hello " + name).build();
-	}
 	
 	@POST
 	@Path("/receipt")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addReceipt(InputStream data) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(data));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		System.out.println("Data received : " + sb.toString());
 		
 		return Response.ok().build();
 	}
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Item getItem() {
-//		postToDB();
-//		return new Item("Banane", 4, 2);
-//	}
 	
 	private void postToDB() {
 		if(mongo == null ) {
