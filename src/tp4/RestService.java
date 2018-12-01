@@ -1,5 +1,8 @@
 package tp4;
 
+
+import com.mongodb.MongoClient;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,7 +15,9 @@ import javax.ws.rs.core.Response;
 @Path("/REST")
 @ApplicationPath("/resources")
 public class RestService extends Application {
-
+	
+	MongoClient mongo = null;
+	
 		
 	// http://localhost:8080/TP4/resources/REST/hello?name=Vero
 	@GET
@@ -24,9 +29,28 @@ public class RestService extends Application {
 	@GET
 	@Path("/article")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Article getArticle() {
-		return new Article("Banane", 4);
+	public Item getItem() {
+		postToDB();
+		return new Item("Banane", 4);
 	}
 	
+	private void postToDB() {
+		if(mongo == null ) {
+			mongo = new MongoClient();
+		}
+		
+		
+		mongo.getDatabase("LOG8430").getCollection("receipes").insertOne(ItemHelper.toDBDocument(new Item("Banana", 2)));
+		String connectPoint = mongo.getConnectPoint();
+		System.out.println(connectPoint);
+	}
+	
+	@GET
+	@Path("/logout")
+	public void logout() {
+		if(mongo != null) {
+			mongo.close();
+		}
+	}
 	
 }
