@@ -1,11 +1,14 @@
 package tp4;
 
 
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.UUID;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
@@ -17,6 +20,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.bson.Document;
 
 @Path("/REST")
 @ApplicationPath("/resources")
@@ -41,19 +46,17 @@ public class RestService extends Application {
 			System.out.println(e.getMessage());
 		}
 		
-		System.out.println("Data received : " + sb.toString());
-		
+		postToDB(new Gson().fromJson(sb.toString(), Item[].class));
 		return Response.ok().build();
 	}
 	
-	private void postToDB() {
+	private void postToDB(Item[] receipt) {
 		if(mongo == null ) {
 			mongo = new MongoClient();
 		}
 		
-		mongo.getDatabase("LOG8430").getCollection("receipes").insertOne(ItemHelper.toDBDocument(new Item("Banana", 2, 1)));
-		String connectPoint = mongo.getConnectPoint();
-		System.out.println(connectPoint);
+		String id = UUID.randomUUID().toString();		
+		mongo.getDatabase("LOG8430").getCollection("receipts").insertMany(ItemHelper.toDBDocument(id,receipt));
 	}
 	
 	@GET

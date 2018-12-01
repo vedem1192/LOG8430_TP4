@@ -1,9 +1,11 @@
 package tp4;
 
+import org.bson.Document;
+
 public class Item {
 	
 	private String name;
-	private int price;
+	private double price;
 	private int qty;
 	
 	public Item(String name, int price, int qty) {
@@ -12,7 +14,7 @@ public class Item {
 		this.qty = qty;
 	}
 	
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 	
@@ -23,5 +25,11 @@ public class Item {
 	
 	public int getQuantity() {
 		return qty;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Item : " + name + ", Price : " + price + ", Quatity : " + qty;
 	}
 }
