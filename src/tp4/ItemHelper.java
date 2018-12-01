@@ -22,16 +22,4 @@ public class ItemHelper {
 
 		return documentItem;
 	}
-	
-	public static final Document toDBDocument(String id, Item item) {
-		Document documentItem = new Document();
-
-			documentItem.append("receiptID", id)
-					.append("name", item.getName())
-					.append("price", item.getPrice())
-					.append("quatity", item.getQuantity());
-		
-
-		return documentItem;
-	}
 }
