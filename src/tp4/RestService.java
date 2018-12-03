@@ -24,7 +24,7 @@ public class RestService extends Application {
 	
 	MongoClient mongo = null;
 	
-	// http://localhost:8080/TP4/resources/REST/receipe
+	// http://localhost:8080/TP4/resources/REST/receipt
 	
 	@POST
 	@Path("/receipt")
@@ -46,8 +46,8 @@ public class RestService extends Application {
 	}
 	
 	private void postToDB(Item[] receipt) {
-		if(mongo == null ) {
-			mongo = new MongoClient();
+		if(mongo == null) {
+			mongo = new MongoClient("localhost" , 27017);
 		}
 		
 		String id = UUID.randomUUID().toString();		

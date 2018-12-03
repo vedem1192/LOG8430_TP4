@@ -15,7 +15,7 @@ public class ItemHelper {
 			document.append("receiptID", id)
 					.append("name", item.getName())
 					.append("price", item.getPrice())
-					.append("quatity", item.getQuantity());
+					.append("quantity", item.getQuantity());
 			
 			documentItem.add(document);
 		}

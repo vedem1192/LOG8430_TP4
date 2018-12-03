@@ -51,7 +51,6 @@
 <div> Le total du panier est de : <strong>{{this.total}}</strong></div>
 
 <a href="#" class="btn btn-info btn-lg" (click)="sendReceipt()"> Envoyer </a>
-<div class="alert alert-success" *ngIf="success">Votre facture à été envoyé</div>
-<div class="alert alert-danger" *ngIf="errorHttp">Une erreur est survenue lors de l'envoie de la facture.</div>
+<div class="alert alert-success" *ngIf="errorHttp">Votre facture à été envoyé</div>
 
 <router-outlet></router-outlet>

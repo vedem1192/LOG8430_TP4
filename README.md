@@ -27,4 +27,4 @@ RESTService
 3. Vous pouvez maintenant enregistrer vos factures à partir du client node.js
 
 # Démarer le client
-1. Voir README.md de laurent, l'ajouter ici
+1. Voir README.md dans le dossier /RestClient/client
